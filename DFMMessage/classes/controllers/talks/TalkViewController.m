@@ -10,19 +10,16 @@
 #import "AppDelegate.h"
 #import "MessageViewController.h"
 #import "LoginViewController.h"
-#import <CoreLocation/CoreLocation.h>
 #import "SWTableViewCell.h"
 #import "MaskView.h"
 #import "KxMenu.h"
 #import "MIBadgeButton.h"
-@interface TalkViewController ()<UITableViewDataSource,UITableViewDelegate,XMPPChatDelegate,CLLocationManagerDelegate,SWTableViewCellDelegate>{
+@interface TalkViewController ()<UITableViewDataSource,UITableViewDelegate,XMPPChatDelegate,SWTableViewCellDelegate>{
     UITableView *_tableView;
     NSMutableArray *_datas;
     NSMutableDictionary *_talksDic;
-    CLLocationManager *_locationManager;
     CLLocation *_checkinLocation;
     NSString *jidUser;
-    
     NSNotificationCenter *center;
     int num;
 }
@@ -45,10 +42,7 @@
     [super viewDidLoad];
     [self initParams];
     [self initViews];
-
     [self titleWithName:@"消息"];
-   // [self initWithDatas];
-    
     center = [NSNotificationCenter defaultCenter];
     //添加当前类对象为一个观察者，name和object设置为nil，表示接收一切通知
     [center addObserver:self selector:@selector(removeFriend:) name:@"removeFriend" object:nil];
@@ -58,7 +52,6 @@
 -(void)viewWillAppear:(BOOL)animated{
     [XMPPServer sharedServer].chatDelegate = self;
         [super viewWillAppear:animated];
-   // [self setupLocationManager];
     if ([XMPPServer sharedServer].isLogin) {
         [self titleWithName:@"消息"];
     }
@@ -141,35 +134,8 @@
     add = nil;
 }
 
-- (void) setupLocationManager {
-    _locationManager = [[CLLocationManager alloc] init];
-    if ([CLLocationManager locationServicesEnabled]) {
-        NSLog( @"Starting CLLocationManager" );
-        _locationManager.delegate = self;
-        _locationManager.distanceFilter = 1;
-        _locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-        [_locationManager startUpdatingLocation];
-    } else {
-        NSLog( @"Cannot Starting CLLocationManager" );
-        _locationManager.delegate = self;
-         _locationManager.distanceFilter = 1;
-         _locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-        
-    }
-}
 
-- (void)hackLocationFix
-{
-    float latitude = 26.876812;
-    float longitude = 100.22569199999998;  //这里可以是任意的经纬度值
-    CLLocation *location= [[CLLocation alloc] initWithLatitude:latitude longitude:longitude];
-    [_locationManager.delegate locationManager:_locationManager didUpdateLocations:[NSArray arrayWithObjects:location, nil]];
-}
 
-- (void)startUpdatingLocation
-{
-    [_locationManager performSelector:@selector(startUpdatingLocation) withObject:nil afterDelay:15];
-}
 
 -(void)createMoreButtonsViewWithIndex:(int)index{
     NSLog(@"%d",index);
@@ -557,31 +523,6 @@
     }
 }
 
-
-#pragma mark 地理位置代理
--(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations{
-    CLLocation *location = [locations firstObject];
-    NSLog(@"locations:%f,%f",location.coordinate.latitude,location.coordinate.longitude);
-    // 经纬度GEO
-    double w = location.coordinate.latitude;
-    double j = location.coordinate.longitude;
-    //location = [[CLLocation alloc] initWithLatitude:w longitude:j];
-    NSString *jw = [CommonOperation geoHash_EnCode:w Longitude:j Precision:20];
-    NSLog(@"经纬度编码：%@",jw);
-
-    // 保存
-    EMe *m = [XMPPHelper my];
-    m.longitude = location.coordinate.longitude;
-    m.latitude = location.coordinate.latitude;
-    m.geoHash = jw;
-    [DataOperation save];
-    
-    // 更新用户动态信息
-    [XMPPHelper updateUserInfo:[XMPPHelper my]];
-    m = nil;
-}
-
-
 #pragma mark 消息代理
 -(void)didReceiveMessage:(XMPPMessage *)xmppMessage WithXMPPStream:(XMPPStream *)xmppStream andEMessage:(EMessages *)em{
     XMPPJID *jid = [xmppMessage from];
@@ -612,7 +553,6 @@
     
     if (state==7) {
         [self titleWithName:@"消息"];
-        //[self setupLocationManager];
     }else if(state==0){
         [self titleWithName: [NSString stringWithFormat:@"消息(未连接)"]];
     }else if(state==1){

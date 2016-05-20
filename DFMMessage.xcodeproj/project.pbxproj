@@ -300,7 +300,6 @@
 		7CCA7FE8192765CB00C30943 /* NSString+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CCA7FD0192765CB00C30943 /* NSString+Base64.m */; };
 		7CD250A91924E26D00EE1889 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CD250A81924E26D00EE1889 /* SystemConfiguration.framework */; };
 		7CD250AB1924E28600EE1889 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CD250AA1924E28600EE1889 /* CoreData.framework */; };
-		7CD250AD1924E29000EE1889 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CD250AC1924E29000EE1889 /* CoreLocation.framework */; };
 		7CFAC15C1951D04D007E062A /* qunliao@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7CFAC15B1951D04D007E062A /* qunliao@2x.png */; };
 		7CFAC15E1951D1ED007E062A /* guangbo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7CFAC15D1951D1ED007E062A /* guangbo@2x.png */; };
 		7CFAC1601951D29F007E062A /* paizhao@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7CFAC15F1951D29F007E062A /* paizhao@2x.png */; };
@@ -893,7 +892,6 @@
 				5F5806601952B782001ECCD5 /* AssetsLibrary.framework in Frameworks */,
 				7C5F3ECF1931CD85005EF856 /* libz.dylib in Frameworks */,
 				7C8BA1DD193094C300FD7635 /* AVFoundation.framework in Frameworks */,
-				7CD250AD1924E29000EE1889 /* CoreLocation.framework in Frameworks */,
 				7CD250AB1924E28600EE1889 /* CoreData.framework in Frameworks */,
 				7CD250A91924E26D00EE1889 /* SystemConfiguration.framework in Frameworks */,
 				5F8FC1C01946F55C005114E7 /* libidn.a in Frameworks */,
