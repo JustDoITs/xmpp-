@@ -46,8 +46,8 @@
 #define kButtonBackgroundColor UIColorWithHex(0xFFFFFF)
 
 // XMPP
-//louisdemac-mini.local   192.168.3.10
-//win-b1i94klqos0      103.44.145.248  :14263
+//本机地址 louisdemac-mini.local   192.168.3.10
+//服务器地址  win-b1i94klqos0      103.44.145.248  :14263 //可以配置服外网服务器 设置好映射端口 就可以访问了
 #define kROSTER @"ios"
 #define kHostName @"louisdemac-mini.local"//
 #define kServerName @"192.168.3.10"//:
