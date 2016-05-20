@@ -12,13 +12,14 @@
 #import "AddFriendsViewController.h"
 #import "ContactFriendsViewController.h"
 #import "NearUsersViewController.h"
-
-@interface FriendsViewController()<UITableViewDataSource,UITableViewDelegate,XMPPChatDelegate,UITextFieldDelegate>{
+#import "MJRefresh.h"
+@interface FriendsViewController()<UITableViewDataSource,UITableViewDelegate,XMPPChatDelegate,UITextFieldDelegate,MJRefreshBaseViewDelegate>{
     UITableView *_tableView;
     NSMutableArray *_datas;
     NSMutableArray *_groupNames;
     NSMutableDictionary *_groupDatas;
     UITextField *_textFiled;
+    MJRefreshHeaderView *header;
 }
 
 @end
@@ -33,8 +34,7 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [XMPPServer sharedServer].chatDelegate = self;
-    [self initDatas];
-    
+
 }
 
 -(void)dealloc{
@@ -45,14 +45,12 @@
     _textFiled = nil;
 }
 
-
 -(void)initParams{
     [self initDatas];
     
 }
 -(void)initViews{
     [self initNavigationWithTitle:@"通讯录" IsBack:NO ReturnType:2];
-    
     [self addTables];
     [self addSearchTextFiled];
     [self addFriendsButton];
@@ -76,6 +74,11 @@
         _tableView.sectionIndexBackgroundColor = KClearColor;
     }
     [self.view addSubview:_tableView];
+    
+    header = [MJRefreshHeaderView header];
+    header.delegate=self;
+    header.scrollView =_tableView;
+    
 }
 
 
@@ -121,10 +124,6 @@
     CGFloat y = (self.header.frame.size.height-h)/2;
     UIButton *addFriends = [[UIButton alloc] initWithFrame:CGRectMake(x, y, w, h)];
     addFriends.backgroundColor = KClearColor;
-    //addFriends.layer.backgroundColor = KClearColor.CGColor;
-    //addFriends.layer.cornerRadius = 3;
-    //addFriends.layer.borderColor = KClearColor.CGColor;
-    //addFriends.layer.borderWidth = 0.5;
     [addFriends setTitle:@"添加朋友" forState:UIControlStateNormal];
     [addFriends setTitleColor:UIColorWithHex(0xFFFFFF) forState:UIControlStateNormal];
     [addFriends setTitleColor:UIColorWithHex(0xCCCCCC) forState:UIControlStateHighlighted];
@@ -165,7 +164,7 @@
                 [_tableView reloadData];
             }
         });
-        
+        [header endRefreshing];
     });
 }
 
@@ -302,8 +301,6 @@
         }
     }
     
-    
-    
     return cell;
 }
 
@@ -371,11 +368,8 @@
         // 删除单元格
         [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewAutomaticDimension];
         
-        
         NSNotification * notice = [NSNotification notificationWithName:@"removeFriend" object:friend.jid   userInfo:nil];
         [[NSNotificationCenter defaultCenter]postNotification:notice];
-        
-        
         
         // 如果分组没有数据 删除分组和分组数据
         if (dataCount==1) {
@@ -392,15 +386,19 @@
 
 #pragma mark 消息代理
 -(void)didReceiveMessage:(XMPPMessage *)xmppMessage WithXMPPStream:(XMPPStream *)xmppStream andEMessage:(EMessages *)em{
-//    [CommonOperation circleTipWithNumber:[CommonOperation numberWithNewMessageWithJId:nil] SuperView:[[self.footer subviews]firstObject] WithPoint:(iPhone5?CGPointMake(65, 0):(iPhone6?CGPointMake(70, 0):CGPointMake(80, 0)))];
+    
     [self initDatas];
 }
 
 -(void)friendWhenSendAddAction:(XMPPJID *)friendJID Subscription:(NSString *)subscription{
     
-    
     [_tableView reloadData];
 }
+#pragma mark- 下拉刷新
+-(void)refreshViewBeginRefreshing:(MJRefreshBaseView *)refreshView{
 
+[self initDatas];
+
+}
 
 @end
