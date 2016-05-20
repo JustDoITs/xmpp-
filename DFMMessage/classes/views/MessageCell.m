@@ -137,6 +137,11 @@ static NSString *_time;
         _sayView.image = nil;
         _secondView.text = nil;
         [_contentBtn setTitle:body forState:UIControlStateNormal];
+        _contentBtn.titleEdgeInsets=UIEdgeInsetsMake(0, 0, 0, -40);
+          if (_msm.messageType == 1) {
+        _contentBtn.titleEdgeInsets=UIEdgeInsetsMake(0, -40, 0, 0);
+        }
+        
     }
     //语音
     if (_msm.sendTyep==1) {
