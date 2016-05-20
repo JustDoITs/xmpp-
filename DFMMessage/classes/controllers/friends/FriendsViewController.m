@@ -36,13 +36,13 @@
     [XMPPServer sharedServer].chatDelegate = self;
 
 }
-
 -(void)dealloc{
     _tableView = nil;
     _datas = nil;
     _groupDatas = nil;
     _groupNames = nil;
     _textFiled = nil;
+    [header free];
 }
 
 -(void)initParams{
