@@ -52,13 +52,12 @@
 -(void)initViews{
     [self initNavigationWithTitle:@"通讯录" IsBack:NO ReturnType:2];
     [self addTables];
-    [self addSearchTextFiled];
     [self addFriendsButton];
 }
 
 -(void)addTables{
     CGFloat x = 0;
-    CGFloat y = self.header.frame.size.height+self.header.frame.origin.y;
+    CGFloat y = self.header.frame.size.height+self.header.frame.origin.y+5;
     CGFloat w = self.view.frame.size.width;
     CGFloat h = self.view.frame.size.height-y-self.header.frame.size.height;
     
@@ -79,42 +78,6 @@
     header.delegate=self;
     header.scrollView =_tableView;
     
-}
-
-
--(void)addSearchTextFiled{
-    CGFloat x = 0;
-    CGFloat y = 0;
-    CGFloat w = self.view.frame.size.width;
-    CGFloat h = kCellHeight;
-    UIView *sView = [[UIView alloc] initWithFrame:CGRectMake(x, y, w, h)];
-    sView.backgroundColor = kBackgroundColor;
-    UITextField *searchText = [[UITextField alloc] initWithFrame:CGRectMake(10, 7, w-20, h-14)];
-    searchText.backgroundColor = UIColorWithHex(0xFFFFFF);
-    searchText.layer.borderWidth = 0.5;
-    searchText.layer.borderColor = kCellBottomLineColor.CGColor;
-    searchText.layer.cornerRadius = 5;
-    searchText.placeholder = @"搜索手机号/用户名";
-    searchText.font = [UIFont systemFontOfSize:14];
-    searchText.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 0)];
-    searchText.leftViewMode = UITextFieldViewModeAlways;
-    searchText.rightViewMode = UITextFieldViewModeUnlessEditing;
-    UIImage *simg = [UIImage imageNamed:@"search"];
-    simg = [CommonOperation imageWithTintColor:UIColorWithHex(0xCCCCCC) blendMode:kCGBlendModeDestinationIn WithImageObject:simg];
-    UIImageView *rightView = [[UIImageView alloc] initWithImage:simg];
-    searchText.rightView = rightView;
-    rightView = nil;
-    simg = nil;
-    searchText.clearsOnBeginEditing = NO;
-    searchText.clearButtonMode = UITextFieldViewModeWhileEditing;
-    searchText.returnKeyType = UIReturnKeySearch;
-    searchText.delegate = self;
-    _textFiled = searchText;
-    searchText = nil;
-    [sView addSubview:_textFiled];
-    [CommonOperation drawLineAtSuperView:sView andTopOrDown:1 andHeight:0.5 andColor:kCellBottomLineColor];
-    _tableView.tableHeaderView = sView;
-    sView = nil;
 }
 
 -(void)addFriendsButton{
