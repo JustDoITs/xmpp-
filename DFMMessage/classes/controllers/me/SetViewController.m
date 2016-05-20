@@ -69,7 +69,6 @@
     _tableView.separatorColor = kCellBottomLineColor;
     _tableView.sectionIndexColor = UIColorWithHex(0x333333);
     if (kSystemVersion>=7) {
-        //_tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.sectionIndexBackgroundColor = KClearColor;
     }
     [self.view addSubview:_tableView];
@@ -80,9 +79,6 @@
     
     _groupNames = [[NSMutableArray alloc] initWithObjects:@"0", nil];
     _groupDatas = [[NSMutableDictionary alloc] init];
-   // [_groupDatas setObject:[NSArray arrayWithObjects:@"账号与安全", nil] forKey:@"0"];
-   // [_groupDatas setObject:[NSArray arrayWithObjects:@"新消息通知",@"隐私",@"通用", nil] forKey:@"1"];
-   // [_groupDatas setObject:[NSArray arrayWithObjects:@"关于附近", nil] forKey:@"2"];
     [_groupDatas setObject:[NSArray arrayWithObjects:@"退出登录",nil] forKey:@"0"];
 
     if (_tableView) {
@@ -240,6 +236,4 @@
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
     [self.view endEditing:YES];
 }
-
-
 @end

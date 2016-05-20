@@ -18,7 +18,7 @@
     NSString *_oldValue;
     UIButton *_loginBt;
     
-    BOOL isup;//
+    BOOL isup;
 }
 
 @end
@@ -44,7 +44,6 @@
 #pragma mark 初始化
 -(void)initViews{
     [self initNavigationWithTitle:@"注册" IsBack:YES ReturnType:1];
-    // self.view.backgroundColor = UIColorWithHex(0xFFFFFF);
     _registerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
     
     CGFloat h = 50;
@@ -68,7 +67,6 @@
     [_registerView addSubview:des];
     des = nil;
     
-
     //textfilde
     userNameTF=[[UITextField alloc]initWithFrame:CGRectMake(20, y+20, kScreenBounds.size.width-40, 40)];
     userNameTF.borderStyle=UITextBorderStyleRoundedRect;
@@ -78,7 +76,6 @@
     passWoedTF.borderStyle=UITextBorderStyleRoundedRect;
     passWoedTF.placeholder=@"密码";
     [self.view addSubview:passWoedTF];
-    
     
     
     // 注册按钮
@@ -95,7 +92,6 @@
     [_registerView addSubview:loginBt];
     _loginBt = loginBt;
     loginBt = nil;
-    
     
     [self.view addSubview:_registerView];
     [self.view sendSubviewToBack:_registerView];

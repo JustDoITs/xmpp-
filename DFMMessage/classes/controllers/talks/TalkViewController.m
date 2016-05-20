@@ -89,17 +89,7 @@
 }
 
 -(void)initParams{
-//    if (![CommonOperation getMyJID]) {
-//        LoginViewController *login = [[LoginViewController alloc] init];
-//        UINavigationController *nc=[[UINavigationController alloc] initWithRootViewController:login];
-//        nc.modalTransitionStyle= UIModalTransitionStyleCoverVertical;
-//        [self presentViewController:nc animated:YES completion:^{
-//            // 清空已读
-//        }];
-//        login = nil;
-//    }
     [XMPPHelper sendVCardIQ];
-   // [self setupLocationManager];
 }
 -(void)initViews{
     [self initNavigationWithTitle:@"消息" IsBack:NO ReturnType:2];
@@ -122,18 +112,12 @@
     tap = nil;
     [self.view addSubview:_tableView];
     
-    //[self addButtonView];
 }
 -(void)initWithDatas{
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         NSString *myJID = [CommonOperation getMyJID];
-        
         _datas = [NSMutableArray arrayWithArray:[DataOperation select:@"ETalks" Where:[NSString stringWithFormat:@"myJID='%@'",myJID] orderBy:@"userName" sortType:YES]];
-       
-        
-        
         dispatch_async(dispatch_get_main_queue(), ^{
-//            [CommonOperation circleTipWithNumber:[CommonOperation numberWithNewMessageWithJId:nil] SuperView:[[self.footer subviews]firstObject] WithPoint:(iPhone5?CGPointMake(65, 0):(iPhone6?CGPointMake(70, 0):CGPointMake(80, 0)))];
             if (_tableView) {
                 [_tableView reloadData];
             }
@@ -176,7 +160,6 @@
 
 - (void)hackLocationFix
 {
-    //CLLocation *location = [[CLLocation alloc] initWithLatitude:42 longitude:-50];
     float latitude = 26.876812;
     float longitude = 100.22569199999998;  //这里可以是任意的经纬度值
     CLLocation *location= [[CLLocation alloc] initWithLatitude:latitude longitude:longitude];
@@ -480,8 +463,6 @@
         UILabel *time = [views objectAtIndex:3];
         time.text = [CommonOperation toDescriptionStringWithTimestamp:mssage.time];
         time = nil;
-        //NSLog(@"[toJID bare]  %@",[toJID bare]);
-//        [CommonOperation circleTipWithNumber:[CommonOperation numberWithNewMessageWithJId:[toJID bare]] SuperView:cell.contentView WithPoint:CGPointMake(68, 2)];
         MIBadgeButton *btn1 = [MIBadgeButton buttonWithType:UIButtonTypeCustom];
         [btn1 setFrame:CGRectMake(kScreenBounds.size.width-60, 60, 10, 10)];
         [btn1 setBadgeBackgroundColor:[UIColor redColor]];
@@ -514,9 +495,7 @@
     toJID = nil;
     [self performSelector:@selector(pushViewController:) withObject:ms afterDelay:0.1];
     ms = nil;
-
-   
-    
+  
 }
 -(void)pushViewController:(NSObject*)sender{
     MessageViewController *ms  = (MessageViewController*)sender;
@@ -646,7 +625,7 @@
 
 -(void)friendWhenSendAddAction:(XMPPJID *)friendJID Subscription:(NSString *)subscription
 {
-   // [CommonOperation circleTipWithNumber:[CommonOperation numberWithAddFriendRequest] SuperView:[[self.footer subviews] objectAtIndex:1] WithPoint:CGPointMake(35, 0)];
+
 }
 
 

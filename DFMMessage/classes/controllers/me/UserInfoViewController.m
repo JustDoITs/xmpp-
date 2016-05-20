@@ -79,7 +79,6 @@
     _tableView.separatorColor = kCellBottomLineColor;
     _tableView.sectionIndexColor = UIColorWithHex(0x333333);
     if (kSystemVersion>=7) {
-        //_tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.sectionIndexBackgroundColor = KClearColor;
     }
     [self.view addSubview:_tableView];
@@ -222,7 +221,6 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     switch (indexPath.section) {
         case 0:
-            //[self performSelector:@selector(showUploadFaceView) withObject:nil afterDelay:0.3];
             [self showUploadFaceView];
             break;
         case 1:
@@ -332,25 +330,8 @@
         }else{
             
             mask.hideFinishBlock = ^{
-                // 多选插件
-//                QBImagePickerController *imagePickerController = [[QBImagePickerController alloc] init];
-//                imagePickerController.delegate = self;
-//                imagePickerController.groupTypes = @[
-//                                                     @(ALAssetsGroupSavedPhotos),
-//                                                     @(ALAssetsGroupPhotoStream),
-//                                                     @(ALAssetsGroupAlbum)
-//                                                     ];
-//                imagePickerController.allowsMultipleSelection = YES;
-//                imagePickerController.minimumNumberOfSelection = 1;
-//                imagePickerController.maximumNumberOfSelection = 1;
-//                
-//                UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:imagePickerController];
-//                [self presentViewController:navigationController animated:YES completion:NULL];
-//                imagePickerController = nil;
-                
                 // 系统相册
                 [self initUIImagePickerController];
-                
             };
             [mask hide];
         }
@@ -497,40 +478,6 @@
 
 
 #pragma mark - QBImagePickerControllerDelegate
-
-//- (void)dismissImagePickerController
-//{
-//    if (self.presentedViewController) {
-//        [self dismissViewControllerAnimated:YES completion:NULL];
-//    } else {
-//        [self.navigationController popToViewController:self animated:YES];
-//    }
-//}
-//
-//- (void)imagePickerController:(QBImagePickerController *)imagePickerController didSelectAsset:(ALAsset *)asset
-//{
-//    NSLog(@"*** imagePickerController:didSelectAsset:");
-//    NSLog(@"%@", asset);
-//    
-//    [self dismissImagePickerController];
-//}
-//
-//- (void)imagePickerController:(QBImagePickerController *)imagePickerController didSelectAssets:(NSArray *)assets
-//{
-//    NSLog(@"*** imagePickerController:didSelectAssets:");
-//    NSLog(@"%@", assets);
-//    
-//    [self dismissImagePickerController];
-//}
-//
-//- (void)imagePickerControllerDidCancel:(QBImagePickerController *)imagePickerController
-//{
-//    NSLog(@"*** imagePickerControllerDidCancel:");
-//    
-//    [self dismissImagePickerController];
-//}
-
-
 
 #pragma mark 消息代理
 -(void)didReceiveMessage:(XMPPMessage *)xmppMessage WithXMPPStream:(XMPPStream *)xmppStream andEMessage:(EMessages *)em{

@@ -59,7 +59,6 @@
 }
 #pragma mark 初始化
 -(void)initViews{
-    //[self initNavigationWithTitle:@"登录" IsBack:NO ReturnType:2];
     self.view.backgroundColor = kBackgroundColor;
     _loginView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
     CGFloat w = self.view.frame.size.width;

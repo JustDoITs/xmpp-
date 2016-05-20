@@ -36,13 +36,10 @@
     [self.window setRootViewController:_navigationController];
     [self.window makeKeyAndVisible];
 
-        
         if (!_xmppServer) {
             _xmppServer = [XMPPServer sharedServer];
             [_xmppServer connect];
         }
-    
-    
 }
 
 -(void)free{

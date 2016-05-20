@@ -88,14 +88,10 @@
     _groupNames = [[NSMutableArray alloc] initWithObjects:@"0",@"1", nil];
     _groupDatas = [[NSMutableDictionary alloc] init];
     [_groupDatas setObject:[NSArray arrayWithObjects:@"", nil] forKey:@"0"];
- //  [_groupDatas setObject:[NSArray arrayWithObjects:@"个人主页",@"我的收藏",@"我的二维码", nil] forKey:@"1"];
-   // [_groupDatas setObject:[NSArray arrayWithObjects:@"表情", nil] forKey:@"2"];
     [_groupDatas setObject:[NSArray arrayWithObjects:@"设置", nil] forKey:@"1"];
     // 图标
     _groupImages = [[NSMutableDictionary alloc] init];
     [_groupImages setObject:[NSArray arrayWithObjects:@"", nil] forKey:@"0"];
-  //  [_groupImages setObject:[NSArray arrayWithObjects:@"myHome",@"myFav",@"myTowCode", nil] forKey:@"1"];
-   // [_groupImages setObject:[NSArray arrayWithObjects:@"myFace", nil] forKey:@"2"];
     [_groupImages setObject:[NSArray arrayWithObjects:@"mySet", nil] forKey:@"3"];
     if (_tableView) {
         [_tableView reloadData];

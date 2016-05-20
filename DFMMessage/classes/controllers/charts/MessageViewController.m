@@ -93,13 +93,10 @@
 
 -(void)free{
     self.voice = nil;
-   // [_tableView removeFromSuperview];
-   // _tableView = nil;
     _allMessagesFrame = nil;
     _pressSayButton = nil;
     [_queue cancelAllOperations];
     _queue = nil;
-   // [self.view removeFromSuperview];
     
     [[NSNotificationCenter defaultCenter]removeObserver:self name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter]removeObserver:self name:UIKeyboardWillHideNotification object:nil];
@@ -350,58 +347,12 @@
                 _currentCellIndex ++;
             }
             mArray = nil;
-            //        dispatch_async(dispatch_get_main_queue(), ^{
-            //            if (_tableView) {
-            //                [_tableView reloadData];
-            //                if (_currentCellIndex>0) {
-            //                    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:_currentCellIndex - 1 inSection:0];
-            //                    if (_page==1) {
-            //                        [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:NO];
-            //                    }else{
-            //                        [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:NO];
-            //                        CGFloat _currentY = _tableView.contentOffset.y;
-            //                        CGFloat _currentX = _tableView.contentOffset.x;
-            //                        _currentY -= 30;
-            //                        [self.tableView setContentOffset:CGPointMake(_currentX, _currentY)];
-            //                    }
-            //
-            //                }
-            //            }
-            //            _isLoadMore = NO;
-            //            _loadView.hidden = YES;
-            //            [_loadView stopAnimating];
-            //            if (_currentCellIndex<=1 && _page>1) {
-            //                // 提示没信息了
-            //                _noMessageTipLb.hidden = NO;
-            //                [UIView animateWithDuration:1 animations:^{
-            //                    _noMessageTipLb.alpha = 0.5;
-            //                } completion:^(BOOL finish){
-            //                    [UIView animateWithDuration:2 animations:^{
-            //                        _noMessageTipLb.alpha = 0;
-            //                    } completion:^(BOOL finish){
-            //                        _noMessageTipLb.hidden = YES;
-            //                    }];
-            //                }];
-            //            }
-            //        });
-            //        
         }];
 }
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
     int page = _scrollView.contentOffset.x / 320;//通过滚动的偏移量来判断目前页面所对应的小白点
     _pageControl.currentPage = page; //pagecontroll响应值的变化
-    
-    //CGFloat y = scrollView.contentOffset.y;
-    
-//    if (y<-15) {
-//        if (_loadView.hidden) {
-//            // 显示loadingView
-//            _loadView.hidden = NO;
-//            [_loadView startAnimating];
-//            [self performSelector:@selector(initDatasWithPage) withObject:nil afterDelay:1];
-//        }
-//    }
 }
 
 -(void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset{
@@ -606,7 +557,6 @@
 }
 
 #pragma mark pagecontroll的委托方法
-
 - (void)changePage:(id)sender {
     int page = _pageControl.currentPage;//获取当前pagecontroll的值
     _pageControl.pageIndicatorTintColor = UIColorWithHex(0x333333);
@@ -673,7 +623,6 @@
     }
     
     [[UIApplication sharedApplication].keyWindow endEditing:YES];
-    //[self.view endEditing:YES];
 }
 
 -(NSString*)sendMessageToFriendWithContent:(NSString*)content MessageType:(int)messageType second:(CGFloat)second SendTyep:(int)sendTyep{
@@ -739,7 +688,6 @@
     NSLog(@"%lu",(unsigned long)body.length);
     if (body.length<1)
         return;
-  //  [_queue addOperationWithBlock:^{
         XMPPMessage *message = [XMPPMessage messageWithType:type to:self.toJID];
         [message addBody:body];
         XMPPElementReceipt *receipt;
@@ -768,9 +716,6 @@
         
         message = nil;
         receipt = nil;
-   // }];
-    
-    
 }
 
 
@@ -885,12 +830,10 @@
     
     // 设置数据
     cell.messageFrame = _allMessagesFrame[indexPath.row];
-    
     return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
     return [_allMessagesFrame[indexPath.row] cellHeight];
 }
 

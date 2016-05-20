@@ -63,23 +63,11 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    
-    
     if (![CommonOperation getMyJID]) {
-        
         [self presentViewController:[[LoginViewController alloc]init] animated:YES completion:nil];
     }
-
-    
-    
-    
     //隐藏标题栏
     [self.navigationController setNavigationBarHidden:YES animated:NO];
-    
-   // [CommonOperation circleTipWithNumber:[CommonOperation numberWithNewMessageWithJId:nil] SuperView:[[self.footer subviews]firstObject] WithPoint:(iPhone5?CGPointMake(65, 0):(iPhone6?CGPointMake(70, 0):CGPointMake(80, 0)))];
-   // [CommonOperation circleTipWithNumber:[CommonOperation numberWithAddFriendRequest] SuperView:[[self.footer subviews] objectAtIndex:1] WithPoint:(iPhone5?CGPointMake(65, 0):(iPhone6?CGPointMake(70, 0):CGPointMake(100, 0)))];
-    
-    
 }
 
 -(void)dealloc{
@@ -87,10 +75,7 @@
     _contentView = nil;
     _tabTitles = nil;
     _tabImgs_highlights = nil;
-    
     [[NSNotificationCenter defaultCenter]removeObserver:self name:@"logmiss" object:nil];
-    
-
 }
 
 - (void)didReceiveMemoryWarning
@@ -102,7 +87,7 @@
 #pragma mark ---------------------------------自定义的方法--------------------------
 -(void)initParams{
     _tabTitles = [NSArray arrayWithObjects:@"消息",@"通讯录",@"我", nil];
-   // _tabImgs = [NSArray arrayWithObjects:@"bottom_talk",@"bottom_friends",@"bottom_me", nil];
+
 }
 #pragma mark 初始化栏目控制器
 -(void)initControllers{
@@ -113,11 +98,7 @@
     // 朋友列表
     FriendsViewController *more = [[FriendsViewController alloc] init];
     [self addChildViewController:more];
-    
-    // Discover
-  //  DiscoverViewController *discover = [[DiscoverViewController alloc] init];
-    //[self addChildViewController:discover];
-   
+
     // User
     UsersViewController *user = [[UsersViewController alloc] init];
     [self addChildViewController:user];
@@ -125,16 +106,11 @@
     // 当前controller
     _currentController = talks;
     CGFloat h = kScreenBounds.size.height-kTabBarNavigationHeight;
-//    if (kSystemVersion<7) {
-//        h -= 20;
-//    }
     _contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, h)];
-    
     _contentView.backgroundColor = kBackgroundColor;
     [_contentView addSubview:_currentController.view];
     _currentController.view.frame = _contentView.bounds;
     [self.view addSubview:_contentView];
-    //_contentView.layer.borderWidth = 1;
     // 点击第一个
     [self changeControllersWithTag:0];
 }
@@ -164,13 +140,11 @@
         b.titleLabel.textAlignment = NSTextAlignmentCenter;
         b.titleLabel.font = [UIFont systemFontOfSize:15];
         CGFloat left = -(28+[CommonOperation stringLength:title]*3);
-       // [b setTitleEdgeInsets:UIEdgeInsetsMake(25, left, 2, 0)];
+
         if (i==1) {
-           // [b setImageEdgeInsets:UIEdgeInsetsMake(0, 45, 20, 10)];
             [b setTitleEdgeInsets:UIEdgeInsetsMake(0, 10, 2, 0)];
         }
         if (i==0) {
-          //  [b setImage:img_press forState:UIControlStateNormal];
             [b setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
             b.selected=YES;
         }

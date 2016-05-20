@@ -120,8 +120,7 @@ static NSString *_time;
     }else{
         _timeBtn.hidden = YES;
     }
-    
-    // 2、设置头像
+        // 2、设置头像
     _iconView.image = [UIImage imageNamed:@"noface"];
     _iconView.frame = _messageFrame.iconF;
     
@@ -129,8 +128,6 @@ static NSString *_time;
     NSString *body = _msm.content;
     _contentBtn.frame = _messageFrame.contentF;
     int second = _msm.second;
-    
-   // NSLog(@"%@",[body substringWithRange:NSMakeRange(0, 10)] );
     //文本
     if (_msm.sendTyep==0) {
         _isReadView.hidden = YES;
@@ -140,26 +137,6 @@ static NSString *_time;
         _sayView.image = nil;
         _secondView.text = nil;
         [_contentBtn setTitle:body forState:UIControlStateNormal];
-//        _contentBtn.contentEdgeInsets = UIEdgeInsetsMake(kContentTop, kContentLeft, kContentBottom, kContentRight);
-//        if (_msm.messageType == 0) {
-//            _contentBtn.contentEdgeInsets = UIEdgeInsetsMake(kContentTop, kContentRight, kContentBottom, kContentLeft);
-//        }
-//
-//        UIImage *normal , *focused;
-//        if (_msm.messageType == 0) {
-//            normal = [UIImage imageNamed:@"chatto_bg_normal.png"];
-//            normal = [normal stretchableImageWithLeftCapWidth:normal.size.width * 0.5 topCapHeight:normal.size.height * 0.7];
-//            focused = [UIImage imageNamed:@"chatto_bg_focused.png"];
-//            focused = [focused stretchableImageWithLeftCapWidth:focused.size.width * 0.5 topCapHeight:focused.size.height * 0.7];
-//        }else{
-//            normal = [UIImage imageNamed:@"chatfrom_bg_normal.png"];
-//            normal = [normal stretchableImageWithLeftCapWidth:normal.size.width * 0.5 topCapHeight:normal.size.height * 0.7];
-//            focused = [UIImage imageNamed:@"chatfrom_bg_focused.png"];
-//            focused = [focused stretchableImageWithLeftCapWidth:focused.size.width * 0.5 topCapHeight:focused.size.height * 0.7];
-//        }
-//        [_contentBtn setBackgroundImage:normal forState:UIControlStateNormal];
-//        [_contentBtn setBackgroundImage:focused forState:UIControlStateHighlighted];
-
     }
     //语音
     if (_msm.sendTyep==1) {
@@ -189,7 +166,6 @@ static NSString *_time;
             _secondView.text = [NSString stringWithFormat:@"%d'",second];
             [_secondView sizeToFit];
             _secondView.frame = CGRectMake(x, y, _secondView.frame.size.width, _contentBtn.frame.size.height);
-            //NSLog(@"_sayView=%@  _contentBtn=%@",_sayView,_contentBtn);
             sayimg = nil;
             
             if (!_msm.isRead) {
@@ -199,30 +175,9 @@ static NSString *_time;
                 _isReadView.hidden = YES;
             }
         }
-//        _contentBtn.contentEdgeInsets = UIEdgeInsetsMake(kContentTop, kContentLeft, kContentBottom, kContentRight);
-//        if (_msm.messageType == 0) {
-//            _contentBtn.contentEdgeInsets = UIEdgeInsetsMake(kContentTop, kContentRight, kContentBottom, kContentLeft);
-//        }
-//        
-//        UIImage *normal , *focused;
-//        if (_msm.messageType == 0) {
-//            normal = [UIImage imageNamed:@"chatto_bg_normal.png"];
-//            normal = [normal stretchableImageWithLeftCapWidth:normal.size.width * 0.5 topCapHeight:normal.size.height * 0.7];
-//            focused = [UIImage imageNamed:@"chatto_bg_focused.png"];
-//            focused = [focused stretchableImageWithLeftCapWidth:focused.size.width * 0.5 topCapHeight:focused.size.height * 0.7];
-//        }else{
-//            normal = [UIImage imageNamed:@"chatfrom_bg_normal.png"];
-//            normal = [normal stretchableImageWithLeftCapWidth:normal.size.width * 0.5 topCapHeight:normal.size.height * 0.7];
-//            focused = [UIImage imageNamed:@"chatfrom_bg_focused.png"];
-//            focused = [focused stretchableImageWithLeftCapWidth:focused.size.width * 0.5 topCapHeight:focused.size.height * 0.7];
-//        }
-//        [_contentBtn setBackgroundImage:normal forState:UIControlStateNormal];
-//        [_contentBtn setBackgroundImage:focused forState:UIControlStateHighlighted];
-
     }
     //图片
     if (_msm.sendTyep==2) {
-//         NSLog(@"----------%@",[body substringWithRange:NSMakeRange(0, 10)] );
         if ([body hasPrefix:@"base64"]&&[[body substringWithRange:NSMakeRange(0, 11)] isEqualToString:@"base64Image"] ) {
         _isReadView.hidden = YES;
             [_contentBtn setImage:[UIImage imageWithData:[[_msm.content substringFromIndex:11] base64DecodedData]] forState:UIControlStateNormal];
@@ -236,9 +191,6 @@ static NSString *_time;
     }
     
      [_contentBtn addTarget:self action:@selector(clickButtonCell:) forControlEvents:UIControlEventTouchUpInside];
-    
-  //
-    
 }
 
 -(void)clickButtonCell:(UIButton*)sender{
@@ -277,14 +229,11 @@ static NSString *_time;
 }
 
 - (void)play{
-
-    //If the track is playing, pause and achange playButton text to "Play"
     if([_player isPlaying])
     {
         [_player stop];
     }
-    //If the track is not player, play the track and change the play button to "Pause"
-    else
+      else
     {
         [_player play];
     }
