@@ -1,0 +1,32 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "3CC05EB19B34D566AFD41DB0E193239E9182C6E8",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+    "40bbad28-b2f8-43a6-a575-025b74be727e++8075" : {
+
+    }
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "40bbad28-b2f8-43a6-a575-025b74be727e++8075" : 0,
+    "3CC05EB19B34D566AFD41DB0E193239E9182C6E8" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "ED0FE2AB-43D3-4D74-B89F-464D7723D3A0",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "40bbad28-b2f8-43a6-a575-025b74be727e++8075" : "XMPPMessage-master\/DFMMessage\/classes\/views\/Emoji-master\/",
+    "3CC05EB19B34D566AFD41DB0E193239E9182C6E8" : "XMPPMessage-master\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "DFMMessage",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "DFMMessage.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/cweilouis\/xmpp-.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "3CC05EB19B34D566AFD41DB0E193239E9182C6E8"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "http:\/\/10.0.0.200\/svn\/www",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Subversion",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "40bbad28-b2f8-43a6-a575-025b74be727e++8075"
+    }
+  ]
+}
