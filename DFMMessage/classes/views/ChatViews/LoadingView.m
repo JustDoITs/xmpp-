@@ -49,7 +49,7 @@ static LoadingView *_instance;
         _height = 100;
         [self initViews];
     if (!_timer) {
-        _timer = [NSTimer scheduledTimerWithTimeInterval:30 target:self selector:@selector(timeOutAction:) userInfo:nil repeats:NO];
+        _timer = [NSTimer scheduledTimerWithTimeInterval:15 target:self selector:@selector(timeOutAction:) userInfo:nil repeats:NO];
     }
 
 }

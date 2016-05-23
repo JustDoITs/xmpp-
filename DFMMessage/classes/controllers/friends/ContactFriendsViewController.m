@@ -52,7 +52,6 @@
 
 -(void)initViews{
     [self initNavigationWithTitle:@"新的朋友" IsBack:YES ReturnType:2];
-    [self addFriendsButton];
     [self initTableView];
 }
 
@@ -70,27 +69,6 @@
     //[_tableView setEditing:YES animated:YES];
     [self.view addSubview:_tableView];
 }
-
--(void)addFriendsButton{
-    CGFloat w = 70;
-    CGFloat h = 30;
-    CGFloat x = self.header.frame.size.width-10-w;
-    CGFloat y = (self.header.frame.size.height-h)/2;
-    UIButton *addFriends = [[UIButton alloc] initWithFrame:CGRectMake(x, y, w, h)];
-    addFriends.backgroundColor = KClearColor;
-//    addFriends.layer.backgroundColor = kButtonBackgroundColor.CGColor;
-//    addFriends.layer.cornerRadius = 3;
-//    addFriends.layer.borderColor = kButtonBackgroundColor.CGColor;
-//    addFriends.layer.borderWidth = 0.5;
-    [addFriends setTitle:@"添加朋友" forState:UIControlStateNormal];
-    [addFriends setTitleColor:UIColorWithHex(0xFFFFFF) forState:UIControlStateNormal];
-    [addFriends setTitleColor:UIColorWithHex(0xCCCCCC) forState:UIControlStateHighlighted];
-    addFriends.titleLabel.font = [UIFont boldSystemFontOfSize:14];
-    [addFriends addTarget:self action:@selector(pushToAddFriendsView) forControlEvents:UIControlEventTouchUpInside];
-    [self.header addSubview:addFriends];
-    addFriends = nil;
-}
-
 
 -(void)initDatas{
     NSArray *peoples = [DataOperation select:@"EAddFriends" Where:[NSString stringWithFormat:@"myJID='%@'",[XMPPServer sharedServer].xmppStream.myJID.bare] orderBy:@"time" sortType:NO];

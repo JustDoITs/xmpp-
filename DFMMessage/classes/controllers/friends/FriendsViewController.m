@@ -13,13 +13,12 @@
 #import "ContactFriendsViewController.h"
 #import "NearUsersViewController.h"
 #import "MJRefresh.h"
-@interface FriendsViewController()<UITableViewDataSource,UITableViewDelegate,XMPPChatDelegate,UITextFieldDelegate,MJRefreshBaseViewDelegate>{
+@interface FriendsViewController()<UITableViewDataSource,UITableViewDelegate,XMPPChatDelegate,MJRefreshBaseViewDelegate>{
     UITableView *_tableView;
     NSMutableArray *_datas;
     NSMutableArray *_groupNames;
     NSMutableDictionary *_groupDatas;
-    UITextField *_textFiled;
-    MJRefreshHeaderView *header;
+    MJRefreshHeaderView *headerRF;
 }
 
 @end
@@ -30,19 +29,32 @@
     [super viewDidLoad];
     [self initParams];
     [self initViews];
+    
+     NSNotificationCenter *cnter = [NSNotificationCenter defaultCenter];
+    //添加当前类对象为一个观察者，name和object设置为nil，表示接收一切通知
+    [cnter addObserver:self selector:@selector(addFriendPOP) name:@"addFriendPOP" object:nil];
+    
 }
+-(void)addFriendPOP{
 
+[headerRF beginRefreshing];
+    [self initDatas];
+
+}
 -(void)viewWillAppear:(BOOL)animated{
     [XMPPServer sharedServer].chatDelegate = self;
 
 }
+
+
 -(void)dealloc{
     _tableView = nil;
     _datas = nil;
     _groupDatas = nil;
     _groupNames = nil;
-    _textFiled = nil;
-    [header free];
+    [headerRF free];
+    [[NSNotificationCenter defaultCenter]removeObserver:self name:@"addFriendPOP" object:nil];
+    
 }
 
 -(void)initParams{
@@ -60,7 +72,6 @@
     CGFloat y = self.header.frame.size.height+self.header.frame.origin.y+5;
     CGFloat w = self.view.frame.size.width;
     CGFloat h = self.view.frame.size.height-y-self.header.frame.size.height;
-    
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(x,y,w,h) style:UITableViewStylePlain];
     _tableView.delegate = self;
     _tableView.dataSource = self;
@@ -74,9 +85,9 @@
     }
     [self.view addSubview:_tableView];
     
-    header = [MJRefreshHeaderView header];
-    header.delegate=self;
-    header.scrollView =_tableView;
+    headerRF = [MJRefreshHeaderView header];
+    headerRF.delegate=self;
+    headerRF.scrollView =_tableView;
     
 }
 
@@ -127,7 +138,7 @@
                 [_tableView reloadData];
             }
         });
-        [header endRefreshing];
+        [headerRF endRefreshing];
     });
 }
 

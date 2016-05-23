@@ -139,8 +139,6 @@
         //[b setTitleColor:kTinColor forState:UIControlStateHighlighted];
         b.titleLabel.textAlignment = NSTextAlignmentCenter;
         b.titleLabel.font = [UIFont systemFontOfSize:15];
-        CGFloat left = -(28+[CommonOperation stringLength:title]*3);
-
         if (i==1) {
             [b setTitleEdgeInsets:UIEdgeInsetsMake(0, 10, 2, 0)];
         }

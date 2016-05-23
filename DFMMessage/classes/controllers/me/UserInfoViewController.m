@@ -103,7 +103,7 @@
     _groupDatas = [[NSMutableDictionary alloc] init];
     [_groupDatas setObject:[NSArray arrayWithObjects:@"头像", nil] forKey:@"0"];
     [_groupDatas setObject:[NSArray arrayWithObjects:@"名字",@"账号", nil] forKey:@"1"];
-    [_groupDatas setObject:[NSArray arrayWithObjects:@"性别",@"个性签名", nil] forKey:@"2"];
+    [_groupDatas setObject:[NSArray arrayWithObjects:@"性别", nil] forKey:@"2"];
     if (_tableView) {
         [_tableView reloadData];
     }
@@ -111,7 +111,7 @@
 
 -(void)returnBack{
     [XMPPHelper updateVCardWithEMe:[XMPPHelper my]];
-    [XMPPHelper updateUserInfo:[XMPPHelper my]];
+   // [XMPPHelper updateUserInfo:[XMPPHelper my]];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -161,7 +161,7 @@
                 _imageView.image = [UIImage imageWithData:[imgstring base64DecodedData]];
             }
             imgstring = nil;
-            _imageView.frame = CGRectMake(cell.frame.size.width-60-30, 5, 60, 60);
+            _imageView.frame = CGRectMake(cell.frame.size.width-40, 5, 60, 60);
             _imageView.layer.cornerRadius = 5;
             _imageView.layer.masksToBounds = YES;
             [cell.contentView addSubview:_imageView];
@@ -169,7 +169,7 @@
             //[_imageView removeFromSuperview];
         }
         
-        UILabel *info = [[UILabel alloc] initWithFrame:CGRectMake(100, 0, cell.frame.size.width-130, kCellHeight)];
+        UILabel *info = [[UILabel alloc] initWithFrame:CGRectMake(cell.frame.size.width-100, 0, 100, kCellHeight)];
         info.textColor = UIColorWithHex(0x999999);
         info.font = [UIFont systemFontOfSize:14];
         info.textAlignment = NSTextAlignmentRight;
@@ -236,11 +236,6 @@
                 alert.tag = 1001;
                 [alert show];
                 alert = nil;
-            }
-            if (indexPath.row==1) {
-                EditSignViewController *editSign = [[EditSignViewController alloc] init];
-                [self.navigationController pushViewController:editSign animated:YES];
-                editSign = nil;
             }
             break;
         default:

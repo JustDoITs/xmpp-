@@ -91,12 +91,6 @@
     searchText.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 20, 0)];
     searchText.leftViewMode = UITextFieldViewModeAlways;
     searchText.rightViewMode = UITextFieldViewModeUnlessEditing;
-    UIImage *simg = [UIImage imageNamed:@"search"];
-    simg = [CommonOperation imageWithTintColor:UIColorWithHex(0xCCCCCC) blendMode:kCGBlendModeDestinationIn WithImageObject:simg];
-    UIImageView *rightView = [[UIImageView alloc] initWithImage:simg];
-    searchText.rightView = rightView;
-    rightView = nil;
-    simg = nil;
     searchText.clearsOnBeginEditing = NO;
     searchText.clearButtonMode = UITextFieldViewModeWhileEditing;
     searchText.returnKeyType = UIReturnKeySearch;
@@ -110,7 +104,12 @@
     NSLog(@"搜索");
     [self.view endEditing:YES];
      //[XMPPHelper searchServerUsersWithKeyword:textField.text];
+    if ([_textField.text isEqualToString:@""]) {
+          [[LoadingView instance] stop:@"账号不能为空!" time:2];
+        return NO;
+    }
     [self addButty];
+    [_textField resignFirstResponder];
     return YES;
 }
 
@@ -131,10 +130,13 @@
 }
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-
+ NSNotification * notice = [NSNotification notificationWithName:@"addFriendPOP" object:nil userInfo:nil];
     switch (buttonIndex) {
         case 0:
-            [self.navigationController popViewControllerAnimated:YES];
+            [self.navigationController popToRootViewControllerAnimated:YES];
+           
+            [[NSNotificationCenter defaultCenter]postNotification:notice];
+
             break;
         default:
             break;
