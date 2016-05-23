@@ -24,6 +24,9 @@
     NSArray *_tabImgs_highlights;
     UILabel *_cricle;
     NSNotificationCenter * center;
+    UIButton *messageBtn;
+    UIButton *peopleBtn;
+    UIButton *meBtn;
     
 }
 @end
@@ -48,19 +51,16 @@
     // 初始化控制器
     [self initControllers];
     
-    
-    
     center = [NSNotificationCenter defaultCenter];
     //添加当前类对象为一个观察者，name和object设置为nil，表示接收一切通知
-    [center addObserver:self selector:@selector(logmiss) name:@"logmiss" object:nil];
+    [center addObserver:self selector:@selector(setViewmiss) name:@"setViewmiss" object:nil];
     
     
 }
--(void)logmiss{
-    [self changeControllersWithTag:0];
+-(void)setViewmiss{
+ [self changeControllersWithTag:0];
+ [self changeBtnState:messageBtn btn1Color:[UIColor redColor] btn1Size:15 btn2:peopleBtn btn2Color:[UIColor whiteColor] btn2Size:12  btn3:meBtn btn3Color:[UIColor whiteColor] btn3Size:12 changeControllersWithTag:0];
 }
-
-
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     if (![CommonOperation getMyJID]) {
@@ -75,7 +75,7 @@
     _contentView = nil;
     _tabTitles = nil;
     _tabImgs_highlights = nil;
-    [[NSNotificationCenter defaultCenter]removeObserver:self name:@"logmiss" object:nil];
+    [[NSNotificationCenter defaultCenter]removeObserver:self name:@"setViewmiss" object:nil];
 }
 
 - (void)didReceiveMemoryWarning
@@ -121,40 +121,29 @@
     UIView *tab = [[UIView alloc] initWithFrame:CGRectMake(0, kScreenBounds.size.height-kTabBarNavigationHeight, self.view.frame.size.width, kTabBarNavigationHeight)];
     tab.backgroundColor = kTabBarBackgroundColor;
     // 导航栏栏目
-    CGFloat x = 0;
-    CGFloat y = 5;
-    CGFloat w = tab.frame.size.width/_tabTitles.count;
-    CGFloat h = tab.frame.size.height;
-    for (int i=0; i<_tabTitles.count; i++) {
-        UIImage *img = [UIImage imageNamed:[_tabImgs objectAtIndex:i]];
-        img = [CommonOperation imageWithTintColor:kMain_imgColor blendMode:kCGBlendModeDestinationIn WithImageObject:img];
-        UIImage *img_press = [CommonOperation imageWithTintColor:kMain_imgHighlightColor blendMode:kCGBlendModeDestinationIn WithImageObject:img];
-        UIButton *b = [[UIButton alloc] initWithFrame:CGRectMake(x, y, w, h)];
-       // [b setImage:img forState:UIControlStateNormal];
-        //[b setImage:img_press forState:UIControlStateHighlighted];
-        [b setImageEdgeInsets:UIEdgeInsetsMake(0, 15, 20, 0)];
-        NSString *title = [_tabTitles objectAtIndex:i] ;
-        [b setTitle:title forState:UIControlStateNormal];
-        [b setTitleColor:kMain_imgColor forState:UIControlStateNormal];
-        //[b setTitleColor:kTinColor forState:UIControlStateHighlighted];
-        b.titleLabel.textAlignment = NSTextAlignmentCenter;
-        b.titleLabel.font = [UIFont systemFontOfSize:15];
-        if (i==1) {
-            [b setTitleEdgeInsets:UIEdgeInsetsMake(0, 10, 2, 0)];
-        }
-        if (i==0) {
-            [b setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
-            b.selected=YES;
-        }
-        b.tag = i;
-        [b addTarget:self action:@selector(clickTabButtonAction:) forControlEvents:UIControlEventTouchUpInside];
-        [tab addSubview:b];
-        b = nil;
-        x += w;
-        img_press = nil;
-        img = nil;
-    }
-    [CommonOperation drawLineAtSuperView:tab andTopOrDown:0 andHeight:0.5 andColor:kTabBarLineColor];
+    messageBtn =[UIButton buttonWithType:UIButtonTypeCustom];
+    messageBtn.frame=CGRectMake(0, 0, 100, tab.frame.size.height);
+    [messageBtn setTitle:@"消息" forState:UIControlStateNormal];
+    [messageBtn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+    [messageBtn addTarget:self action:@selector(messageBtn) forControlEvents:UIControlEventTouchUpInside];
+    messageBtn.selected=YES;
+    messageBtn.titleLabel.font=[UIFont systemFontOfSize:16];
+    [tab addSubview:messageBtn];
+    
+    peopleBtn =[UIButton buttonWithType:UIButtonTypeCustom];
+    peopleBtn.frame=CGRectMake(kScreenBounds.size.width/2-50, 0, 100, tab.frame.size.height);
+    [peopleBtn setTitle:@"通讯录" forState:UIControlStateNormal];
+    peopleBtn.titleLabel.font=[UIFont systemFontOfSize:13];
+    [peopleBtn addTarget:self action:@selector(peopleBtn) forControlEvents:UIControlEventTouchUpInside];
+    [tab addSubview:peopleBtn];
+
+    meBtn =[UIButton buttonWithType:UIButtonTypeCustom];
+    meBtn.frame=CGRectMake(kScreenBounds.size.width-100, 0, 100, tab.frame.size.height);
+    [meBtn setTitle:@"我" forState:UIControlStateNormal];
+    meBtn.titleLabel.font=[UIFont systemFontOfSize:13];
+    [meBtn addTarget:self action:@selector(meBtn) forControlEvents:UIControlEventTouchUpInside];
+    [tab addSubview:meBtn];
+
     self.footer = tab;
     tab = nil;
     [self.view addSubview:self.footer];
@@ -164,34 +153,29 @@
         self.footer.frame=frame;
     }
 }
-
 #pragma mark 点击切换按钮
--(void)clickTabButtonAction:(UIButton*)button{
-    int tag = button.tag;
-    [self changeControllersWithTag:tag];
-    NSArray *buttons = [self.footer subviews];
-    for (int i=0; i<buttons.count; i++) {
-        UIButton *b = [buttons objectAtIndex:i];
-        if ([[b class] isSubclassOfClass:[UIButton class]]) {
-            UIImage *img = [UIImage imageNamed:[_tabImgs objectAtIndex:i]];
-            img = [CommonOperation imageWithTintColor:kMain_imgColor blendMode:kCGBlendModeDestinationIn WithImageObject:img];
-           // [b setImage:img forState:UIControlStateNormal];
-            [b setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-            b.backgroundColor = KClearColor;
-            img = nil;
-        }
-        b = nil;
-    }
-    UIImage *img = [UIImage imageNamed:[_tabImgs objectAtIndex:tag]];
-    UIImage *img_press = [CommonOperation imageWithTintColor:kMain_imgHighlightColor blendMode:kCGBlendModeDestinationIn WithImageObject:img];
-   // [button setImage:img_press forState:UIControlStateNormal];
-    [button setTitleColor:[UIColor redColor]forState:UIControlStateNormal];
+-(void)messageBtn{
+    [self changeBtnState:messageBtn btn1Color:[UIColor redColor] btn1Size:16 btn2:peopleBtn btn2Color:[UIColor whiteColor] btn2Size:13  btn3:meBtn btn3Color:[UIColor whiteColor] btn3Size:13 changeControllersWithTag:0];
 
-    img = nil;
-    img_press = nil;
+}
+-(void)peopleBtn{
+    [self changeBtnState:peopleBtn btn1Color:[UIColor redColor] btn1Size:16 btn2:messageBtn btn2Color:[UIColor whiteColor] btn2Size:13 btn3:meBtn btn3Color:[UIColor whiteColor] btn3Size:13 changeControllersWithTag:1];
+    
+}
+-(void)meBtn{
+     [self changeBtnState:peopleBtn btn1Color:[UIColor whiteColor] btn1Size:13 btn2:messageBtn btn2Color:[UIColor whiteColor] btn2Size:13 btn3:meBtn btn3Color:[UIColor redColor] btn3Size:16 changeControllersWithTag:2];
 }
 
+-(void)changeBtnState:(UIButton *)btn1  btn1Color:(UIColor *)c1  btn1Size:(int)btn1Size  btn2:(UIButton *)btn2 btn2Color:(UIColor *)c2  btn2Size:(int)btn2Size btn3:(UIButton *)btn3 btn3Color:(UIColor *)c3 btn3Size:(int)btn3Size changeControllersWithTag:(int)tag{
+    [btn1 setTitleColor:c1 forState:UIControlStateNormal];
+    btn1.titleLabel.font=[UIFont systemFontOfSize:btn1Size];
+    [btn2 setTitleColor:c2 forState:UIControlStateNormal];
+    btn2.titleLabel.font=[UIFont systemFontOfSize:btn2Size];
+    [btn3 setTitleColor:c3 forState:UIControlStateNormal];
+    btn3.titleLabel.font=[UIFont systemFontOfSize:btn3Size];
+    [self changeControllersWithTag:tag];
 
+}
 #pragma mark 切换控制器
 -(void)changeControllersWithTag:(int)tag{
     if (tag>=self.childViewControllers.count) {

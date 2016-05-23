@@ -234,12 +234,7 @@
         [XMPPServer sharedServer].chatDelegate = nil;
         [[LoadingView instance] stop:@"登录成功" time:2];
      [[XMPPServer sharedServer] disconnect];
-        [self dismissViewControllerAnimated:YES completion:^{
-            
-            NSNotification * notice = [NSNotification notificationWithName:@"logmiss" object:nil userInfo:nil];
-            [[NSNotificationCenter defaultCenter]postNotification:notice];
-            
-        }];
+        [self dismissViewControllerAnimated:YES completion:^{}];
         return;
     }else{
         

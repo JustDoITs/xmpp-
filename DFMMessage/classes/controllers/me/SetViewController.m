@@ -139,8 +139,6 @@
     // 确定退出
     MaskView *mask = (MaskView*)[[sender superview] superview];
     if (sender.tag==0) {
-        
-        
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         [defaults setObject:@"" forKey:USERID];
         [defaults setObject:@"" forKey:PASS];
@@ -154,6 +152,9 @@
         mask.hideFinishBlock = ^{
             // 清空用户信息
              [self.navigationController popToRootViewControllerAnimated:NO];
+            
+            NSNotification * notice = [NSNotification notificationWithName:@"setViewmiss" object:nil userInfo:nil];
+            [[NSNotificationCenter defaultCenter]postNotification:notice];
         };
         [mask hide];
     }
