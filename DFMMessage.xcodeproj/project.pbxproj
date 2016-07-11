@@ -311,6 +311,7 @@
 		BF47A1911CEC757600F9111E /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = BF47A1901CEC757600F9111E /* NSData+Base64.m */; };
 		BF7542011CE0C39900AAFEBB /* LPBadgeView.bundle in Resources */ = {isa = PBXBuildFile; fileRef = BF7541FE1CE0C39900AAFEBB /* LPBadgeView.bundle */; };
 		BF7542021CE0C39900AAFEBB /* LPBadgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF7542001CE0C39900AAFEBB /* LPBadgeView.m */; };
+		BFAB318D1D3394FC0098A55E /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BFAB318C1D3394FC0098A55E /* Launch Screen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -882,6 +883,7 @@
 		BF7541FE1CE0C39900AAFEBB /* LPBadgeView.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = LPBadgeView.bundle; sourceTree = "<group>"; };
 		BF7541FF1CE0C39900AAFEBB /* LPBadgeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPBadgeView.h; sourceTree = "<group>"; };
 		BF7542001CE0C39900AAFEBB /* LPBadgeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LPBadgeView.m; sourceTree = "<group>"; };
+		BFAB318C1D3394FC0098A55E /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2020,6 +2022,7 @@
 		7CAFC4C31918E87800882C1A = {
 			isa = PBXGroup;
 			children = (
+				BFAB318C1D3394FC0098A55E /* Launch Screen.storyboard */,
 				7CAFC4D51918E87800882C1A /* DFMMessage */,
 				7CAFC4F41918E87800882C1A /* DFMMessageTests */,
 				7CAFC4CE1918E87800882C1A /* Frameworks */,
@@ -2484,6 +2487,7 @@
 				7CB58460195DA452005E8F79 /* Login_Register@2x.png in Resources */,
 				7C8BA1CD1930711A00FD7635 /* chat_bottom_up_nor@2x.png in Resources */,
 				7C9F082F1956A21300400409 /* myTowCode@2x.png in Resources */,
+				BFAB318D1D3394FC0098A55E /* Launch Screen.storyboard in Resources */,
 				7C8BA1D11930711A00FD7635 /* chat_timeline_bg@2x.png in Resources */,
 				7C8BA1D61930711A00FD7635 /* messages.plist in Resources */,
 				7CFAC15E1951D1ED007E062A /* guangbo@2x.png in Resources */,
@@ -2862,7 +2866,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
@@ -2898,7 +2901,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
