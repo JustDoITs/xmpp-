@@ -161,7 +161,7 @@
                 _imageView.image = [UIImage imageWithData:[imgstring base64DecodedData]];
             }
             imgstring = nil;
-            _imageView.frame = CGRectMake(cell.frame.size.width-40, 5, 60, 60);
+            _imageView.frame = CGRectMake(cell.frame.size.width-40-60, 5, 60, 60);
             _imageView.layer.cornerRadius = 5;
             _imageView.layer.masksToBounds = YES;
             [cell.contentView addSubview:_imageView];
@@ -169,7 +169,7 @@
             //[_imageView removeFromSuperview];
         }
         
-        UILabel *info = [[UILabel alloc] initWithFrame:CGRectMake(cell.frame.size.width-100, 0, 100, kCellHeight)];
+        UILabel *info = [[UILabel alloc] initWithFrame:CGRectMake(cell.frame.size.width-100-40, 0, 100, kCellHeight)];
         info.textColor = UIColorWithHex(0x999999);
         info.font = [UIFont systemFontOfSize:14];
         info.textAlignment = NSTextAlignmentRight;
@@ -423,6 +423,8 @@
     // 拿到裁剪后的图片 editedImage;
     [[LoadingView instance] start:@"正在处理图片..."];
     editedImage = [CommonOperation imageByScalingToMaxSize:editedImage];
+    
+    NSLog(@"%u",UIImagePNGRepresentation(editedImage).length);
     [cropperViewController dismissViewControllerAnimated:YES completion:^{
         
         // TO DO
